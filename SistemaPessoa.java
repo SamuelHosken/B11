@@ -1,134 +1,66 @@
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class SistemaPessoa extends JFrame {
-
     public SistemaPessoa() {
-
-        setTitle("Sistema de Pessoa");
-        setSize(600, 400);
+        super("Sistema de Pessoa");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(600, 400);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-
         JMenuBar menuBar = new JMenuBar();
+        
         JMenu menuCadastro = new JMenu("Cadastro");
-        JMenu menuVisualizacao = new JMenu("Visualização");
-        JMenu menuSair = new JMenu("Sair");
-
-
-        JMenuItem itemFechar = new JMenuItem("Fechar");
-        menuSair.add(itemFechar);
-
-
+        JMenuItem menuUsuarios = new JMenuItem("Usuários");
+        JMenuItem menuPessoas = new JMenuItem("Pessoas");
+        menuCadastro.add(menuUsuarios);
+        menuCadastro.add(menuPessoas);
         menuBar.add(menuCadastro);
+        
+        JMenu menuVisualizacao = new JMenu("Visualização");
+        JMenuItem listaUsuarios = new JMenuItem("Lista de usuário");
+        JMenuItem listaPessoas = new JMenuItem("Lista de Pessoas");
+        menuVisualizacao.add(listaUsuarios);
+        menuVisualizacao.add(listaPessoas);
         menuBar.add(menuVisualizacao);
+        
+        JMenuItem menuSair = new JMenuItem("Sair");
         menuBar.add(menuSair);
+        
         setJMenuBar(menuBar);
-
-
-        JPanel panelCadastro = new JPanel(new GridLayout(4, 2, 10, 10));
-        panelCadastro.setBorder(BorderFactory.createTitledBorder("Cadastro de Usuários"));
-
-        JLabel labelUsuario = new JLabel("Usuário:");
-        JTextField textUsuario = new JTextField();
+        menuSair.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0); // Encerra o programa
+            }
+        });
+        JPanel rodapePanel = new JPanel(new BorderLayout());
+        rodapePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         
-        JLabel labelSenha = new JLabel("Senha:");
-        JPasswordField textSenha = new JPasswordField();
-
-        JLabel labelEmail = new JLabel("Email:");
-        JTextField textEmail = new JTextField();
-
-        JLabel labelAtivo = new JLabel("Ativo:");
-        JCheckBox checkAtivo = new JCheckBox();
-
-
-        panelCadastro.add(labelUsuario);
-        panelCadastro.add(textUsuario);
+        JLabel versaoLabel = new JLabel("Versão: 12.1.2024", SwingConstants.LEFT);
+        JLabel usuarioLabel = new JLabel("Usuário: denys.silva", SwingConstants.CENTER);
+        JLabel dataLabel = new JLabel("Data de acesso: " + getDataAtual(), SwingConstants.RIGHT);
         
-        panelCadastro.add(labelSenha);
-        panelCadastro.add(textSenha);
+        rodapePanel.add(versaoLabel, BorderLayout.WEST);
+        rodapePanel.add(usuarioLabel, BorderLayout.CENTER);
+        rodapePanel.add(dataLabel, BorderLayout.EAST);
         
-        panelCadastro.add(labelEmail);
-        panelCadastro.add(textEmail);
-        
-        panelCadastro.add(labelAtivo);
-        panelCadastro.add(checkAtivo);
-
-
-        JPanel panelBotoes = new JPanel(new FlowLayout());
-
-
-        JButton btnIncluir = new JButton("Incluir");
-        JButton btnAlterar = new JButton("Alterar");
-        JButton btnExcluir = new JButton("Excluir");
-        JButton btnConsultar = new JButton("Consultar");
-        JButton btnCancelar = new JButton("Cancelar");
-        JButton btnSair = new JButton("Sair");
-
-
-        panelBotoes.add(btnIncluir);
-        panelBotoes.add(btnAlterar);
-        panelBotoes.add(btnExcluir);
-        panelBotoes.add(btnConsultar);
-        panelBotoes.add(btnCancelar);
-        panelBotoes.add(btnSair);
-
-
-        btnIncluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botão clicado! - Incluir");
-            }
-        });
-
-        btnAlterar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botão clicado! - Alterar");
-            }
-        });
-
-        btnExcluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botão clicado! - Excluir");
-            }
-        });
-
-        btnConsultar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botão clicado! - Consultar");
-            }
-        });
-
-        btnCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botão clicado! - Cancelar");
-            }
-        });
-
-        btnSair.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-
-        itemFechar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-
-        add(panelCadastro, BorderLayout.CENTER);
-        add(panelBotoes, BorderLayout.SOUTH);
-
-
-        setVisible(true);
+        add(rodapePanel, BorderLayout.SOUTH);
     }
-
+    private String getDataAtual() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return LocalDateTime.now().format(formatter);
+    }
     public static void main(String[] args) {
-        new SistemaPessoa();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new SistemaPessoa().setVisible(true);
+            }
+        });
     }
 }
