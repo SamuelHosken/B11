@@ -1,81 +1,134 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import javax.swing.*;
 
 public class SistemaPessoa extends JFrame {
+
     public SistemaPessoa() {
-        super("Sistema de Pessoa");
 
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Sistema de Pessoa");
         setSize(600, 400);
-        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
 
         JMenuBar menuBar = new JMenuBar();
-        
-
         JMenu menuCadastro = new JMenu("Cadastro");
-        JMenuItem menuUsuarios = new JMenuItem("Usuários");
-        JMenuItem menuPessoas = new JMenuItem("Pessoas");
-        menuCadastro.add(menuUsuarios);
-        menuCadastro.add(menuPessoas);
-        menuBar.add(menuCadastro);
-        
-
         JMenu menuVisualizacao = new JMenu("Visualização");
-        JMenuItem listaUsuarios = new JMenuItem("Lista de usuário");
-        JMenuItem listaPessoas = new JMenuItem("Lista de Pessoas");
-        menuVisualizacao.add(listaUsuarios);
-        menuVisualizacao.add(listaPessoas);
-        menuBar.add(menuVisualizacao);
-        
+        JMenu menuSair = new JMenu("Sair");
 
-        JMenuItem menuSair = new JMenuItem("Sair");
+
+        JMenuItem itemFechar = new JMenuItem("Fechar");
+        menuSair.add(itemFechar);
+
+
+        menuBar.add(menuCadastro);
+        menuBar.add(menuVisualizacao);
         menuBar.add(menuSair);
-        
         setJMenuBar(menuBar);
 
 
-        menuSair.addActionListener(new ActionListener() {
-            @Override
+        JPanel panelCadastro = new JPanel(new GridLayout(4, 2, 10, 10));
+        panelCadastro.setBorder(BorderFactory.createTitledBorder("Cadastro de Usuários"));
+
+        JLabel labelUsuario = new JLabel("Usuário:");
+        JTextField textUsuario = new JTextField();
+        
+        JLabel labelSenha = new JLabel("Senha:");
+        JPasswordField textSenha = new JPasswordField();
+
+        JLabel labelEmail = new JLabel("Email:");
+        JTextField textEmail = new JTextField();
+
+        JLabel labelAtivo = new JLabel("Ativo:");
+        JCheckBox checkAtivo = new JCheckBox();
+
+
+        panelCadastro.add(labelUsuario);
+        panelCadastro.add(textUsuario);
+        
+        panelCadastro.add(labelSenha);
+        panelCadastro.add(textSenha);
+        
+        panelCadastro.add(labelEmail);
+        panelCadastro.add(textEmail);
+        
+        panelCadastro.add(labelAtivo);
+        panelCadastro.add(checkAtivo);
+
+
+        JPanel panelBotoes = new JPanel(new FlowLayout());
+
+
+        JButton btnIncluir = new JButton("Incluir");
+        JButton btnAlterar = new JButton("Alterar");
+        JButton btnExcluir = new JButton("Excluir");
+        JButton btnConsultar = new JButton("Consultar");
+        JButton btnCancelar = new JButton("Cancelar");
+        JButton btnSair = new JButton("Sair");
+
+
+        panelBotoes.add(btnIncluir);
+        panelBotoes.add(btnAlterar);
+        panelBotoes.add(btnExcluir);
+        panelBotoes.add(btnConsultar);
+        panelBotoes.add(btnCancelar);
+        panelBotoes.add(btnSair);
+
+
+        btnIncluir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); 
+                JOptionPane.showMessageDialog(null, "Botão clicado! - Incluir");
+            }
+        });
+
+        btnAlterar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Botão clicado! - Alterar");
+            }
+        });
+
+        btnExcluir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Botão clicado! - Excluir");
+            }
+        });
+
+        btnConsultar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Botão clicado! - Consultar");
+            }
+        });
+
+        btnCancelar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "Botão clicado! - Cancelar");
+            }
+        });
+
+        btnSair.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
 
 
-        JPanel rodapePanel = new JPanel(new BorderLayout());
-        rodapePanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-        
+        itemFechar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-        JLabel versaoLabel = new JLabel("Versão: 12.1.2024", SwingConstants.LEFT);
-        JLabel usuarioLabel = new JLabel("Usuário: denys.silva", SwingConstants.CENTER);
-        JLabel dataLabel = new JLabel("Data de acesso: " + getDataAtual(), SwingConstants.RIGHT);
-        
-        rodapePanel.add(versaoLabel, BorderLayout.WEST);
-        rodapePanel.add(usuarioLabel, BorderLayout.CENTER);
-        rodapePanel.add(dataLabel, BorderLayout.EAST);
-        
-        add(rodapePanel, BorderLayout.SOUTH);
-    }
 
-  
-    private String getDataAtual() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return LocalDateTime.now().format(formatter);
+        add(panelCadastro, BorderLayout.CENTER);
+        add(panelBotoes, BorderLayout.SOUTH);
+
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SistemaPessoa().setVisible(true);
-            }
-        });
+        new SistemaPessoa();
     }
 }
