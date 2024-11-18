@@ -5,3 +5,6 @@ Compile o código:
 
 Execute o código:
 **java cdpo.CardapioWindows**
+
+
+A avaliação AVA4 primeira e segunda parte não foram postada, ou seja, não foram respondidas.
