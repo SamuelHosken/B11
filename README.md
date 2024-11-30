@@ -8,3 +8,5 @@ Execute o código:
 
 
 A avaliação AVA4 primeira e segunda parte não foram postada, ou seja, não foram respondidas.
+
+A avaliação AVA5 primeira e segunda parte não foram postada, ou seja, não foram respondidas.
